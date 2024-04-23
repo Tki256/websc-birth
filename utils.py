@@ -79,7 +79,8 @@ def scrape_day_page(month, day):
         paragraphs = soup.find_all("p")
         for p in paragraphs:
             if p.text.startswith(target_text):
-                print(p.text)
+                # print(p.text)
+                text = p.text
                 # 対象の文章に含まれるclass="thumbnail"の要素を取得する
                 thumbnail = p.find_next(class_="thumbnail")
                 if thumbnail:
@@ -89,10 +90,9 @@ def scrape_day_page(month, day):
                     thumbnail_style = thumbnail_style[h_n:-2]
                     # print(thumbnail_style)
                     # display_image_from_url(thumbnail_style)
-                    return thumbnail_style
+                    return text, thumbnail_style
                 else:
-                    print("thumbnailが見つかりませんでした。")
-                break  # 該当する文章が見つかったらループを抜ける
+                    return None, None
     else:
         print("ページにアクセスできませんでした。")
         
